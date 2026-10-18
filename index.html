@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NIVEX SCRIPTS — Software & Creative Engineering</title>
+  <meta name="description" content="NIVEX SCRIPTS — High-performance game scripts, FiveM development, and creative full-stack software engineering.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#07080c">
+  
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NIVEX SCRIPTS — Software & Creative Engineering">
+  <meta property="og:description" content="High-performance game scripts, FiveM development, and creative full-stack software engineering.">
+  <meta property="og:image" content="./nivex-logo.png">
+
+  <!-- Twitter / Discord Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NIVEX SCRIPTS — Software & Creative Engineering">
+  <meta name="twitter:description" content="High-performance game scripts, FiveM development, and creative full-stack software engineering.">
+  <meta name="twitter:image" content="./nivex-logo.png">
+  
+  <!-- Favicon (<N> Cyber Emblem) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2307080c'/><path d='M22 28 L36 50 L22 72' stroke='%2300f0ff' stroke-width='6' fill='none' stroke-linecap='round'/><path d='M78 28 L64 50 L78 72' stroke='%23a855f7' stroke-width='6' fill='none' stroke-linecap='round'/><text x='50' y='68' font-family='sans-serif' font-weight='900' font-size='48' text-anchor='middle' fill='%2300f0ff'>N</text></svg>">
+
+  <!-- Google Fonts: Orbitron, Oxanium, Outfit, Noto Sans JP, Space Mono, Anton -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+JP:wght@400;700;900&family=Orbitron:wght@600;800;900&family=Outfit:wght@300;400;600;700;800;900&family=Oxanium:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Boot Sequence Terminal Overlay -->
+  <div id="bootSequence" class="boot-sequence" aria-live="polite">
+    <div class="boot-terminal-box">
+      <div class="boot-header">
+        <span class="terminal-dot dot-red"></span>
+        <span class="terminal-dot dot-yellow"></span>
+        <span class="terminal-dot dot-green"></span>
+        <span class="terminal-title">NIVEX://CORE_BOOT</span>
+      </div>
+      <div class="boot-text" id="bootText"></div>
+    </div>
+  </div>
+
+  <!-- Neon Scroll Progress Line -->
+  <div class="scroll-progress-track" aria-hidden="true">
+    <div class="scroll-progress-fill" id="scrollProgressFill"></div>
+  </div>
+
+  <!-- Background Audio (1.mp3) -->
+  <audio id="bgMusic" src="./1.mp3" preload="auto" loop></audio>
+
+  <!-- Bottom Floating HUD Controls Dock -->
+  <div class="hud-floating-dock">
+    <!-- Background Music Toggle Button -->
+    <button id="ambientToggle" class="ambient-toggle" aria-label="Toggle background music (1.mp3)" title="Toggle Background Music (1.mp3)">
+      <span class="ambient-icon">♪</span>
+      <span class="dock-tooltip">BACKGROUND MUSIC</span>
+    </button>
+  </div>
+
+  <!-- Preloader Screen -->
+  <div class="preloader" id="preloader">
+    <div class="loader-logo-wrap">
+      <img src="./nivex-logo.png" alt="NIVEX SCRIPTS" class="loader-logo-img">
+    </div>
+    <div class="loader-ring"></div>
+    <div class="loader-title">NIVEX SCRIPTS</div>
+    <div class="loader-text" id="loaderText">SYSTEM INITIALIZING</div>
+  </div>
+
+  <!-- Hero Centerpiece: Sung Jin-woo Shadow Monarch Character -->
+  <div class="hero-mascot" id="heroMascot" aria-hidden="true">
+    <div class="hero-halo-aura"></div>
+    <div class="hero-ground-shadow" id="heroGroundShadow"></div>
+    <div class="hero-landing-shockwave" id="heroLandingShockwave"></div>
+    <canvas id="heroEntranceCanvas" class="hero-entrance-canvas"></canvas>
+    <picture class="hero-mascot-picture">
+      <img src="./nivex2_100_transparent_frames/frame_001.png" alt="NIVEX SCRIPTS Hero Character" class="hero-mascot-img" id="heroMascotImg" width="1920" height="1080" fetchpriority="high">
+    </picture>
+  </div>
+
+  <!-- Interactive Particle FX Canvas -->
+  <canvas id="fxCanvas"></canvas>
+
+  <!-- Cyber Lighting & Dot Grid Overlay -->
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- Split-Apart Background Text Layer -->
+  <div class="azurelia-bg-layer" aria-hidden="true">
+    <div class="azurelia-bg-text-wrapper" id="bgTextWrapper">
+      <span class="text-half left-half" id="bgTextLeft">NI</span>
+      <span class="text-half right-half" id="bgTextRight">VEX</span>
+    </div>
+  </div>
+
+  <!-- Top Navigation Layer -->
+  <div class="nav-layer">
+    <header class="cyber-hud-header">
+      <div class="hud-brand">
+        <img src="./nivex-logo.png" alt="Nivex Scripts Logo" class="brand-logo-img">
+        <span class="brand-bracket">[</span>
+        <span class="brand-title">NIVEX SCRIPTS</span>
+        <span class="brand-bracket">]</span>
+        <div class="brand-line"></div>
+      </div>
+
+      <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="hudMenu" class="hud-menu">
+        <a href="#home" class="hud-nav-link active" data-index="0">
+          <span class="link-sym">✦</span>
+          <span class="link-txt">HOME</span>
+        </a>
+        <a href="#projects" class="hud-nav-link" data-index="1">
+          <span class="link-sym">❖</span>
+          <span class="link-txt">PROJECTS</span>
+        </a>
+        <a href="#skills" class="hud-nav-link" data-index="2">
+          <span class="link-sym">▲</span>
+          <span class="link-txt">SKILLS</span>
+        </a>
+        <a href="#about" class="hud-nav-link" data-index="3">
+          <span class="link-sym">◈</span>
+          <span class="link-txt">ABOUT</span>
+        </a>
+        <a href="#contact" class="hud-nav-link" data-index="4">
+          <span class="link-sym">✉</span>
+          <span class="link-txt">CONTACT</span>
+        </a>
+      </nav>
+
+
+      <div class="hud-status-widget">
+        <span class="status-indicator"></span>
+        <span class="status-code">SYS.ONLINE // NIVEX SCRIPTS</span>
+      </div>
+    </header>
+  </div>
+
+  <!-- HUD Interface Overlay with Parallax Reticle -->
+  <div class="hud-overlay" id="hudOverlay" aria-hidden="true">
+    <div class="right-edge-crosshairs">
+      <div>✕</div>
+      <div>✕</div>
+      <div>✕</div>
+      <div>✦</div>
+    </div>
+  </div>
+
+  <!-- ===== CONTENT SECTIONS (Scroll & Interactive Driven) ===== -->
+  <div class="content-sections-wrapper">
+
+    <!-- 1. PROJECTS -->
+    <section class="content-section align-left split-out" id="section-projects" aria-label="Projects">
+      <div class="panel-float-wrapper">
+        <div class="section-glass-panel">
+          <div class="scan-sweep"></div>
+          <div class="holo-shimmer"></div>
+          <h2 class="section-title">
+            <span>PROJECTS</span>
+            <span class="section-title-sub">FEATURED WORKS [01-04]</span>
+          </h2>
+          
+          <div class="projects-list">
+
+            <!-- Project 1: SnapRays Photography -->
+            <div class="project-row">
+              <div class="project-row-media">
+                <div class="project-row-chrome">
+                  <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                  <span class="chrome-url">snapraysphotography.spcfy.eu</span>
+                </div>
+                <div class="project-row-screen">
+                  <img src="./projects/snaprays.png" alt="SnapRays Photography preview" class="project-row-screenshot" loading="lazy">
+                </div>
+              </div>
+              <div class="project-row-content">
+                <h3>SnapRays Photography</h3>
+                <p>Official studio &amp; visual art portfolio — bookings, master gallery, client order portal &amp; packages.</p>
+                <div class="project-tags">
+                  <span class="project-tag">Photography</span>
+                  <span class="project-tag">Visual Art</span>
+                  <span class="project-tag">Web App</span>
+                </div>
+                <a class="project-row-link" href="https://snapraysphotography.spcfy.eu/" target="_blank" rel="noopener">View Project →</a>
+              </div>
+            </div>
+
+            <!-- Project 2: Breathing Habitat Architecture -->
+            <div class="project-row project-row--reverse">
+              <div class="project-row-media">
+                <div class="project-row-chrome">
+                  <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                  <span class="chrome-url chrome-url--in-progress">// UNDER DEVELOPMENT</span>
+                </div>
+                <div class="project-row-screen">
+                  <img src="./projects/breathing-habitat.png" alt="Breathing Habitat Architecture preview" class="project-row-screenshot" loading="lazy">
+                </div>
+              </div>
+              <div class="project-row-content">
+                <h3>Breathing Habitat Architecture</h3>
+                <p>Premier architecture &amp; spatial design studio platform — sustainable, enduring spaces, vision &amp; articles.</p>
+                <div class="project-tags">
+                  <span class="project-tag">Architecture</span>
+                  <span class="project-tag">Spatial Design</span>
+                  <span class="project-tag">Web App</span>
+                </div>
+                <span class="project-row-badge project-row-badge--in-progress">
+                  <span class="badge-dot-amber"></span>
+                  In Progress
+                </span>
+              </div>
+            </div>
+
+            <!-- Project 3: Snow Cloud — Weather Control Center -->
+            <div class="project-row">
+              <div class="project-row-media">
+                <div class="project-row-chrome">
+                  <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                  <span class="chrome-url">fivem://snow-cloud.weather</span>
+                </div>
+                <div class="project-row-screen">
+                  <img src="./projects/fivem-weather.png" alt="Snow Cloud Weather Control Center preview" class="project-row-screenshot" loading="lazy">
+                </div>
+              </div>
+              <div class="project-row-content">
+                <h3>Snow Cloud — Weather Control Center</h3>
+                <p>Advanced FiveM multi-zone weather &amp; time synchronizer NUI panel — independent regional control for Los Santos, Sandy Shores, Paleto Bay, and Mt. Chiliad.</p>
+                <div class="project-tags">
+                  <span class="project-tag">FiveM Script</span>
+                  <span class="project-tag">Lua / NUI</span>
+                  <span class="project-tag">Game Engine</span>
+                  <span class="project-tag">Admin Panel</span>
+                </div>
+                <span class="project-row-badge" style="border-color: var(--glass-cyan-border); color: var(--cyber-cyan); background: rgba(0, 240, 255, 0.08);">FiveM Script v1.0.0</span>
+              </div>
+            </div>
+
+            <!-- Project 4: NIVEX SCRIPTS (Cinematic Engine) -->
+            <div class="project-row project-row--reverse">
+              <div class="project-row-media">
+                <div class="project-row-chrome">
+                  <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                  <span class="chrome-url chrome-url--in-progress">// UNDER DEVELOPMENT</span>
+                </div>
+                <div class="project-row-screen">
+                  <img src="./projects/nivex-scripts.png" alt="NIVEX SCRIPTS Engine preview" class="project-row-screenshot" loading="lazy">
+                </div>
+              </div>
+              <div class="project-row-content">
+                <h3>NIVEX SCRIPTS</h3>
+                <p>Scroll-driven cinematic cyber portfolio &amp; scripts engine — procedural 3D parallax, Web Audio synthesizer, split-apart background typography and cyber HUD.</p>
+                <div class="project-tags">
+                  <span class="project-tag">Cinematic UI</span>
+                  <span class="project-tag">3D Parallax</span>
+                  <span class="project-tag">Web Audio API</span>
+                  <span class="project-tag">Cyberpunk</span>
+                </div>
+                <span class="project-row-badge project-row-badge--in-progress">
+                  <span class="badge-dot-amber"></span>
+                  In Progress
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. SKILLS -->
+    <section class="content-section align-right split-out" id="section-skills" aria-label="Skills">
+      <div class="panel-float-wrapper">
+        <div class="section-glass-panel skills-panel">
+          <div class="scan-sweep"></div>
+          <div class="holo-shimmer"></div>
+          <h2 class="section-title">
+            <span>SKILLS</span>
+            <span class="section-title-sub">CAPABILITIES MATRIX</span>
+          </h2>
+          <div class="tracklist">
+            
+            <div class="track-item">
+              <span class="track-num">01</span>
+              <span class="track-name">FiveM Scripting &amp; Server Architecture</span>
+              <div class="skill-bar"><div class="skill-bar-fill" style="width: 98%;"></div></div>
+              <span class="skill-pct">98%</span>
+            </div>
+
+            <div class="track-item">
+              <span class="track-num">02</span>
+              <span class="track-name">Social Media Management &amp; Content Creation</span>
+              <div class="skill-bar"><div class="skill-bar-fill" style="width: 95%;"></div></div>
+              <span class="skill-pct">95%</span>
+            </div>
+
+            <div class="track-item">
+              <span class="track-num">03</span>
+              <span class="track-name">Full-Stack Web Development</span>
+              <div class="skill-bar"><div class="skill-bar-fill" style="width: 92%;"></div></div>
+              <span class="skill-pct">92%</span>
+            </div>
+
+            <div class="track-item">
+              <span class="track-num">04</span>
+              <span class="track-name">Graphic Design &amp; UI/UX Design</span>
+              <div class="skill-bar"><div class="skill-bar-fill" style="width: 88%;"></div></div>
+              <span class="skill-pct">88%</span>
+            </div>
+
+            <div class="track-item">
+              <span class="track-num">05</span>
+              <span class="track-name">Video Editing &amp; Cinematic Media</span>
+              <div class="skill-bar"><div class="skill-bar-fill" style="width: 84%;"></div></div>
+              <span class="skill-pct">84%</span>
+            </div>
+
+            <div class="track-item">
+              <span class="track-num">06</span>
+              <span class="track-name">AI Orchestration &amp; Automation</span>
+              <div class="skill-bar"><div class="skill-bar-fill" style="width: 96%;"></div></div>
+              <span class="skill-pct">96%</span>
+            </div>
+
+            <div class="track-item">
+              <span class="track-num">07</span>
+              <span class="track-name">Experimental Content Creation</span>
+              <div class="skill-bar"><div class="skill-bar-fill" style="width: 90%;"></div></div>
+              <span class="skill-pct">90%</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. ABOUT -->
+    <section class="content-section align-left split-out" id="section-about" aria-label="About">
+      <div class="panel-float-wrapper">
+        <div class="section-glass-panel about-panel">
+          <div class="scan-sweep"></div>
+          <div class="holo-shimmer"></div>
+          <h2 class="section-title">
+            <span>ABOUT</span>
+            <span class="section-title-sub">STUDIO &amp; ARCHITECT PROFILE</span>
+          </h2>
+          <div class="about-content">
+            <div class="about-avatar-ring">
+              <div class="avatar-circle">
+                <img src="./nivex-logo.png" alt="N" class="avatar-logo-img">
+              </div>
+              <div class="avatar-text">
+                <h3>NIVEX</h3>
+                <p>WEB DESIGNER • CONTENT CREATOR • FIVEM SCRIPT DEVELOPER • UI CREATOR</p>
+              </div>
+            </div>
+            
+            <div class="about-sys-readout">
+              <div class="readout-row"><span class="r-dim">SYS.STATUS //</span> <span class="r-bright">ONLINE &amp; ACTIVE</span></div>
+              <div class="readout-row"><span class="r-dim">STUDIO //</span> <span class="r-bright">NIVEX SCRIPTS</span></div>
+              <div class="readout-row"><span class="r-dim">SPECIALIZATION //</span> <span class="r-bright">WEB DESIGN, CONTENT CREATION, FIVEM SCRIPTS &amp; UI/UX DESIGN</span></div>
+            </div>
+
+            <p class="about-bio">
+              Creative developer behind <strong>NIVEX SCRIPTS</strong>, building modern websites, engaging digital content, custom FiveM scripts, and immersive user interfaces. Combining creativity with technology to deliver unique digital experiences, powerful game systems, and clean, modern designs.
+            </p>
+
+            <div class="about-stats">
+              <div class="stat">
+                <span class="lbl">Projects</span>
+                <span class="val">Creative Digital Solutions</span>
+              </div>
+              <div class="stat">
+                <span class="lbl">Focus</span>
+                <span class="val">Web Design &amp; FiveM Development</span>
+              </div>
+              <div class="stat">
+                <span class="lbl">Ecosystem</span>
+                <span class="val">NIVEX SCRIPTS</span>
+              </div>
+              <div class="stat">
+                <span class="lbl">Status</span>
+                <span class="val status-available">● Available for Projects</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. CONTACT -->
+    <section class="content-section align-right split-out" id="section-contact" aria-label="Contact">
+      <div class="panel-float-wrapper">
+        <div class="section-glass-panel contact-panel">
+          <div class="scan-sweep"></div>
+          <div class="holo-shimmer"></div>
+          <h2 class="section-title">
+            <span>CONTACT</span>
+            <span class="section-title-sub">NIVEX UPLINK</span>
+          </h2>
+          
+          <div class="contact-links">
+            <a href="mailto:dasuns288@gmail.com" class="contact-link" id="contactEmail">
+              <span class="c-icon">✉</span>
+              <span class="c-text">dasuns288@gmail.com</span>
+              <span class="c-arrow">↗</span>
+            </a>
+            <a href="tel:+94705103179" class="contact-link" id="contactPhone">
+              <span class="c-icon">☎</span>
+              <span class="c-text">+94 70 510 3179</span>
+              <span class="c-arrow">↗</span>
+            </a>
+            <a href="https://wa.me/94705103179" target="_blank" rel="noopener" class="contact-link" id="contactWhatsApp">
+              <span class="c-icon">💬</span>
+              <span class="c-text">WhatsApp Uplink — +94 70 510 3179</span>
+              <span class="c-arrow">↗</span>
+            </a>
+            <a href="https://discord.com" target="_blank" rel="noopener" class="contact-link" id="contactDiscord" title="Discord: @naruto_uzumaki_2026">
+              <span class="c-icon">▲</span>
+              <span class="c-text">Discord — @naruto_uzumaki_2026</span>
+              <span class="c-arrow">↗</span>
+            </a>
+            <a href="https://www.instagram.com/sandeepadasun2002/" target="_blank" rel="noopener" class="contact-link" id="contactInstagram">
+              <span class="c-icon">◈</span>
+              <span class="c-text">Instagram — @sandeepadasun2002</span>
+              <span class="c-arrow">↗</span>
+            </a>
+            <a href="https://www.facebook.com/sandeepa.dasun.godagama/" target="_blank" rel="noopener" class="contact-link" id="contactFacebook">
+              <span class="c-icon">❖</span>
+              <span class="c-text">Facebook — Sandeepa Dasun</span>
+              <span class="c-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Scroll Height Container for Full-Page Scroll Orchestration -->
+  <div class="scroll-container" aria-hidden="true"></div>
+
+  <!-- Main Engine Script -->
+  <script src="main.js"></script>
+</body>
+</html>

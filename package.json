@@ -1,0 +1,21 @@
+{
+  "name": "nivex-scripts-portfolio",
+  "version": "1.0.0",
+  "description": "NIVEX SCRIPTS — Scroll-driven cinematic portfolio & script engine",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "nivex-scripts",
+    "portfolio",
+    "fivem",
+    "cyberpunk",
+    "3d",
+    "parallax",
+    "audio-synthesizer"
+  ],
+  "author": "NIVEX SCRIPTS",
+  "license": "MIT"
+}
