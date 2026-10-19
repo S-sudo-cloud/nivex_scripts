@@ -17,5 +17,8 @@
     "audio-synthesizer"
   ],
   "author": "NIVEX SCRIPTS",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
 }

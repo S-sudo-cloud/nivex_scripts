@@ -65,11 +65,12 @@ const server = http.createServer((req, res) => {
       return;
     }
 
+    const isStatic = (ext === '.webp' || ext === '.png' || ext === '.mp3' || ext === '.jpg' || ext === '.woff2');
     res.writeHead(200, {
       'Content-Type': contentType,
       'Content-Length': stats.size,
       'Accept-Ranges': 'bytes',
-      'Cache-Control': 'no-cache'
+      'Cache-Control': isStatic ? 'public, max-age=86400' : 'no-cache'
     });
 
     const stream = fs.createReadStream(filePath);

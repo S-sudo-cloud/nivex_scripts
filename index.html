@@ -50,13 +50,13 @@
     <div class="scroll-progress-fill" id="scrollProgressFill"></div>
   </div>
 
-  <!-- Background Audio (1.mp3) -->
-  <audio id="bgMusic" src="./1.mp3" preload="auto" loop></audio>
+  <!-- Background Audio (2.mp3) -->
+  <audio id="bgMusic" src="./2.mp3" preload="none" loop></audio>
 
   <!-- Bottom Floating HUD Controls Dock -->
   <div class="hud-floating-dock">
     <!-- Background Music Toggle Button -->
-    <button id="ambientToggle" class="ambient-toggle" aria-label="Toggle background music (1.mp3)" title="Toggle Background Music (1.mp3)">
+    <button id="ambientToggle" class="ambient-toggle" aria-label="Toggle background music (2.mp3)" title="Toggle Background Music (2.mp3)">
       <span class="ambient-icon">♪</span>
       <span class="dock-tooltip">BACKGROUND MUSIC</span>
     </button>
@@ -65,7 +65,10 @@
   <!-- Preloader Screen -->
   <div class="preloader" id="preloader">
     <div class="loader-logo-wrap">
-      <img src="./nivex-logo.png" alt="NIVEX SCRIPTS" class="loader-logo-img">
+      <picture>
+        <source srcset="./nivex-logo.webp" type="image/webp">
+        <img src="./nivex-logo.png" alt="NIVEX SCRIPTS" class="loader-logo-img" width="130" height="130" decoding="async">
+      </picture>
     </div>
     <div class="loader-ring"></div>
     <div class="loader-title">NIVEX SCRIPTS</div>
@@ -79,6 +82,7 @@
     <div class="hero-landing-shockwave" id="heroLandingShockwave"></div>
     <canvas id="heroEntranceCanvas" class="hero-entrance-canvas"></canvas>
     <picture class="hero-mascot-picture">
+      <source srcset="./nivex2_100_transparent_frames/frame_001.webp" type="image/webp">
       <img src="./nivex2_100_transparent_frames/frame_001.png" alt="NIVEX SCRIPTS Hero Character" class="hero-mascot-img" id="heroMascotImg" width="1920" height="1080" fetchpriority="high">
     </picture>
   </div>
@@ -101,7 +105,10 @@
   <div class="nav-layer">
     <header class="cyber-hud-header">
       <div class="hud-brand">
-        <img src="./nivex-logo.png" alt="Nivex Scripts Logo" class="brand-logo-img">
+        <picture>
+          <source srcset="./nivex-logo.webp" type="image/webp">
+          <img src="./nivex-logo.png" alt="Nivex Scripts Logo" class="brand-logo-img" width="36" height="36" decoding="async">
+        </picture>
         <span class="brand-bracket">[</span>
         <span class="brand-title">NIVEX SCRIPTS</span>
         <span class="brand-bracket">]</span>
@@ -177,7 +184,10 @@
                   <span class="chrome-url">snapraysphotography.spcfy.eu</span>
                 </div>
                 <div class="project-row-screen">
-                  <img src="./projects/snaprays.png" alt="SnapRays Photography preview" class="project-row-screenshot" loading="lazy">
+                  <picture>
+                    <source srcset="./projects/snaprays.webp" type="image/webp">
+                    <img src="./projects/snaprays.png" alt="SnapRays Photography preview" class="project-row-screenshot" loading="lazy" decoding="async">
+                  </picture>
                 </div>
               </div>
               <div class="project-row-content">
@@ -200,7 +210,10 @@
                   <span class="chrome-url chrome-url--in-progress">// UNDER DEVELOPMENT</span>
                 </div>
                 <div class="project-row-screen">
-                  <img src="./projects/breathing-habitat.png" alt="Breathing Habitat Architecture preview" class="project-row-screenshot" loading="lazy">
+                  <picture>
+                    <source srcset="./projects/breathing-habitat.webp" type="image/webp">
+                    <img src="./projects/breathing-habitat.png" alt="Breathing Habitat Architecture preview" class="project-row-screenshot" loading="lazy" decoding="async">
+                  </picture>
                 </div>
               </div>
               <div class="project-row-content">
@@ -226,7 +239,10 @@
                   <span class="chrome-url">fivem://snow-cloud.weather</span>
                 </div>
                 <div class="project-row-screen">
-                  <img src="./projects/fivem-weather.png" alt="Snow Cloud Weather Control Center preview" class="project-row-screenshot" loading="lazy">
+                  <picture>
+                    <source srcset="./projects/fivem-weather.webp" type="image/webp">
+                    <img src="./projects/fivem-weather.png" alt="Snow Cloud Weather Control Center preview" class="project-row-screenshot" loading="lazy" decoding="async">
+                  </picture>
                 </div>
               </div>
               <div class="project-row-content">
@@ -247,10 +263,13 @@
               <div class="project-row-media">
                 <div class="project-row-chrome">
                   <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
-                  <span class="chrome-url chrome-url--in-progress">// UNDER DEVELOPMENT</span>
+                  <span class="chrome-url">nivexcore.github.io/nivex_scripts</span>
                 </div>
                 <div class="project-row-screen">
-                  <img src="./projects/nivex-scripts.png" alt="NIVEX SCRIPTS Engine preview" class="project-row-screenshot" loading="lazy">
+                  <picture>
+                    <source srcset="./projects/nivex-scripts.webp" type="image/webp">
+                    <img src="./projects/nivex-scripts.png" alt="NIVEX SCRIPTS Engine preview" class="project-row-screenshot" loading="lazy" decoding="async">
+                  </picture>
                 </div>
               </div>
               <div class="project-row-content">
@@ -262,10 +281,7 @@
                   <span class="project-tag">Web Audio API</span>
                   <span class="project-tag">Cyberpunk</span>
                 </div>
-                <span class="project-row-badge project-row-badge--in-progress">
-                  <span class="badge-dot-amber"></span>
-                  In Progress
-                </span>
+                <a class="project-row-link" href="https://nivexcore.github.io/nivex_scripts/" target="_blank" rel="noopener">View Project →</a>
               </div>
             </div>
 
@@ -353,7 +369,10 @@
           <div class="about-content">
             <div class="about-avatar-ring">
               <div class="avatar-circle">
-                <img src="./nivex-logo.png" alt="N" class="avatar-logo-img">
+                <picture>
+                  <source srcset="./nivex-logo.webp" type="image/webp">
+                  <img src="./nivex-logo.png" alt="N" class="avatar-logo-img" width="48" height="48" decoding="async">
+                </picture>
               </div>
               <div class="avatar-text">
                 <h3>NIVEX</h3>

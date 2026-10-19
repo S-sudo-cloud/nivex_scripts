@@ -29,7 +29,7 @@ d:\portfolio\
 ├── server.js                   # Zero-dependency local Node.js web server
 ├── package.json                # Project configurations & scripts
 ├── nivex-logo.png              # 3D Metallic Logo (< N > NIVEX SCRIPTS)
-├── 1.mp3                       # Background cyber audio track
+├── 2.mp3                       # Background cyber audio track
 ├── nivex_frames_transparent/   # Entrance animation frames
 ├── nivex2_100_transparent_frames/ # Idle loop animation frames
 └── projects/                   # Project screenshots
@@ -47,7 +47,7 @@ d:\portfolio\
 2. **Logo-Matched Color Scheme**: Logo එකේ ඇති Electric Cyan (`#00f0ff`), Bright Sky Blue (`#38bdf8`), සහ Ultraviolet Purple (`#a855f7`) වර්ණ සංයෝජනය සම්පූර්ණ අඩවිය පුරා ක්‍රියාත්මක කර ඇත.
 3. **Split-Apart 3D Background Typography**: Scroll කිරීමේදී හෝ Nav click කිරීමේදී පසුබිමේ ඇති "NI" සහ "VEX" අකුරු දෙපසට 3D perspective එකකින් split වී අදාළ glass panel එක මැදට පැමිණේ.
 4. **Boot Sequence Terminal**: `NIVEX://CORE_BOOT` මගින් ආරම්භ වන dynamic typewriter terminal output එකක්.
-5. **Background Music Player (1.mp3)**: `1.mp3` ගොනුව මගින් ක්‍රියාත්මක වන background cyber music player සහ Web Audio API UI blip sounds (♪ බොත්තම මගින් toggle කළ හැක).
+5. **Background Music Player (2.mp3)**: `2.mp3` ගොනුව මගින් ක්‍රියාත්මක වන background cyber music player සහ Web Audio API UI blip sounds (♪ බොත්තම මගින් toggle කළ හැක).
 6. **Permanent Cyberpunk Dark Theme**: Deep Cyberpunk Dark theme එක ස්ථිර ලෙස අතුරුමුහුණත පුරා සක්‍රීයව පවතී (High-contrast Neon Cyan & Purple accents).
 
 ---
